@@ -42,7 +42,20 @@ On success you should be redirected to the AAP Dashboard.
 
 - From the AAP Dashboard, Go into Administration -> Applications -> Add
 Fill in the relevant fields for the Application as per the screenshot below
-
 ![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/AAP-Configuration/images/AAP-Application-Setup.png)
 ![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/AAP-Configuration/images/AAP-Application-Setup-2.png)
 Setup Application on AAP
+
+We're almost there. Now we finally need to create the Token in the user. 
+I will use the Admin user which is probably not a great idea, but for simplicity, I'll stick with that.
+
+- From the AAP Dashboard, Go into Access -> Users -> Click on the user you want to create a token for (Admin in my case)
+Follow the screenshots below to create this token (don't forget to write down the value as you'll need it for the setup in RHDH).
+![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/AAP-Configuration/images/AAP-Token-step-1.png)
+![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/AAP-Configuration/images/AAP-Token-step-2.png)
+![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/AAP-Configuration/images/AAP-Token-step-3.png)
+![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/AAP-Configuration/images/AAP-Token-step-4.png)
+Token setup on AAP
+
+
+
