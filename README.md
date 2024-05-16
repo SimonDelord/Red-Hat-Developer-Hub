@@ -65,7 +65,7 @@ You then need to modify the YAML view of it and add the following to the YAML co
 Find and replace the plugins []  and replace it with (remember to modify the url, the Token and the sha value).
 
 
-
+```
   plugins:
     - disabled: false
       integrity: >-
@@ -83,7 +83,7 @@ Find and replace the plugins []  and replace it with (remember to modify the url
                 schedule: 
                   frequency: { minutes: 1 }
                   timeout: { minutes: 1 }
-
+```
 You can just click Create and the helm chart will deploy.
 
 
