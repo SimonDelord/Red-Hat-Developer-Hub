@@ -81,15 +81,15 @@ Find and replace the plugins []  and replace it with (remember to modify the url
   plugins:
     - disabled: false
       integrity: >-
-           sha512-3jMQXrX6vEYZpkVWlF1z7L4KiaQwJlSJrjfZAQQhdmIlH/uGuz32aJvq42T0CsTvi/uD52TqyG88r1TCuRidfw==
-      package: '@janus-idp/backstage-plugin-aap-backend@1.6.5'
+           sha512-k8naFrbml77S13cLinCvk2RnaBrOjrW5mkYSPyLPYizrItKkcQp1CmeFkMY9ppaMeyBY1vvHamOChQXTDBxdrA==
+      package: '@janus-idp/backstage-plugin-aap-backend@1.6.6'
       pluginConfig:
         catalog:
           providers:
             aap:
               dev:
                 baseUrl: https://simon-aap-aap.apps.h28yrboo.eastasia.aroapp.io/
-                authorization: 'Bearer LMkbvY88rEFhJ791sMZOheYHFISSF9'
+                authorization: 'Bearer 2rrLxlr7pouLJO57h0Hw4gp8wFT5uR'
                 owner: owner
                 system: system
                 schedule: 
