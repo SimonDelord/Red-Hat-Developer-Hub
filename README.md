@@ -48,7 +48,7 @@ The way to do this is to run the following commands (from your laptop or a jumph
 
 - npm info @janus-idp/backstage-plugin-aap-backend@1.6.5 dist.integrity
 
-![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/images/SHA-AAP-plugin.png)
+![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/images/SHA-AAP-plugin-new.png)
 Finding the SHA-512 from AAP plugin
 
 ### Modifying the helm chart
