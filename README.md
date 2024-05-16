@@ -19,7 +19,7 @@ TBD
 The detailled installation and configuration of AAP can be found under the AAP-Configuration folder 
 [here](https://github.com/SimonDelord/Red-Hat-Developer-Hub/tree/main/AAP-Configuration)
 
-Just make sure to write down both the URL for accessing AAP as well as the Token you generated.
+Just make sure to write down both the URL for accessing AAP as well as the Token you generated. 
 
 ## Figure out the various 
 
@@ -31,7 +31,7 @@ Just make sure to write down both the URL for accessing AAP as well as the Token
 ![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/images/RHDH-Operator-Hub.png)
 ![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/images/RHDH-Deploy-Operator.png)
 
-Installing Red Hat Developer Hub from the Operator Hub Console
+<p align=center>  Installing Red Hat Developer Hub from the Operator Hub Console </p>
 
 - The next step is to actually create a Developer Hub instance on the OpenShift cluster and create the dynamic plugin to access AAP.
 For this activity, I will use the Helm Chart and do the modifications for the dynamic plugin as part of the install.
@@ -51,7 +51,7 @@ The way to do this is to run the following commands (from your laptop or a jumph
 
 ![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/images/SHA-AAP-plugin-new.png)
 
-Finding the SHA-512 from AAP plugin
+<p align=center>  Finding the SHA-512 from AAP plugin </p>
 
 ### Modifying the helm chart
 
@@ -59,7 +59,7 @@ In the Developer view of OCP console, go to Add -> Helm Chart -> Select Develope
 
 ![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/images/RHDH-Helm-Install.png)
 
-Deploying RHDH via Helm Chart
+<p align=center>  Deploying RHDH via Helm Chart </p>
 
 You then need to modify the YAML view of it and add the following to the YAML configuration.
 Find and replace the plugins []  and replace it with (remember to modify the url, the Token and the sha value).
@@ -94,6 +94,6 @@ so in this demo https://simon-aap-aap.apps.h28yrboo.eastasia.aroapp.io/api/dynam
 
 ![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/images/RHDH-List-Plugins.png)
 
-View of the Dynamic Plugins configured on RHDH
+<p align=center>  View of the Dynamic Plugins configured on RHDH </p>
 
  
