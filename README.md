@@ -89,7 +89,7 @@ Find and replace the plugins []  and replace it with (remember to modify the url
             aap:
               dev:
                 baseUrl: https://aap-simon-aap.apps.bswptuqm.eastus.aroapp.io/
-                authorization: 'Bearer 2rrLxlr7pouLJO57h0Hw4gp8wFT5uR'
+                authorization: 'Bearer AAP-TOKEN'
                 owner: owner
                 system: system
                 schedule: 
