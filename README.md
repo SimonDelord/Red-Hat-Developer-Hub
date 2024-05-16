@@ -38,7 +38,7 @@ For this activity, I will use the Helm Chart and do the modifications for the dy
 
 On the OCP Console, go to Developer View, change the project to rhdh-operator.
 
-### Installing the dynamic Plugins - AAP 
+### Installing the dynamic Plugins - AAP & RBAC
 
 To install the dynamic plugin, we need to figure out both the package and the associated sha-512 for it.
 
@@ -55,6 +55,15 @@ The way to do this is to run the following commands (from your laptop or a jumph
 ![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/images/SHA-AAP-plugin-new.png)
 
 <p align=center>  Finding the SHA-512 from AAP plugin </p>
+
+For the RBAC component do the same. 
+
+I'm putting below an example of screenshot for it.
+
+![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/images/SHA-RBAC-plugin-new.png)
+
+<p align=center>  Finding the SHA-512 from RBAC plugin </p>
+
 
 ### Modifying the helm chart
 
@@ -86,6 +95,10 @@ Find and replace the plugins []  and replace it with (remember to modify the url
                 schedule: 
                   frequency: { minutes: 1 }
                   timeout: { minutes: 1 }
+    - disabled: false
+      integrity: sha512-zAKDnvMUv6zwMLx6GIrQDZ+M0D2pcqbZTgG7xqvPJj15j2ZuoJLPmLH7zQM9hdDfKWag0cqoPlP27139klr50Q==
+      package: './dynamic-plugins/dist/janus-idp-backstage-plugin-rbac'
+     
 ```
 You can just click Create and the helm chart will deploy.
 
@@ -95,8 +108,136 @@ You can just click Create and the helm chart will deploy.
 You can first check once the Route for RHDH is available, the plugins by checking the following url - $HOST/api/dynamic-plugins-info/loaded-plugins,
 so in this demo https://simon-aap-aap.apps.h28yrboo.eastasia.aroapp.io/api/dynamic-plugins-info/loaded-plugins
 
-![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/images/RHDH-List-Plugins.png)
+![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/images/RHDH-List-Plugins-new.png)
 
 <p align=center>  View of the Dynamic Plugins configured on RHDH </p>
+
+### Create the Admin user in RHDH
+
+This is a bit of tricky one. As it requires to add/modify some of the existing artefacts in the current RHDH install (e.g I'm too lazy to wrap it all up into a nice neat deployment, apologies).
+
+We will use GitHub as the Auth method. 
+Please create your own access from GitHub to developer Hub by following this tutorial until Step 13.
+[here](https://developers.redhat.com/learning/learn:openshift:install-and-configure-red-hat-developer-hub-and-explore-templating-basics/resource/resources:configure-github-access-red-hat-developer-hub)
+
+You then need to add a couple of configMaps that define the "Admin User" as well as the Permissions for it.
+
+```
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: developer-hub-rbac-config
+  namespace: rhdh-operator
+data:
+  rhdh-config-rbac.yaml: |
+    permission:
+      enabled: true
+      rbac:
+        policies-csv-file: ./rbac-policy.csv
+        admin:
+          users:
+            - name: user:default/simondelord
+```
+
+```
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: developer-hub-rbac-policy
+  namespace: rhdh-operator
+data:
+  rbac-policy.csv: |
+    p, role:default/team-x, catalog-entity, read, allow
+    p, role:default/team-x, catalog.entity.create, create, allow
+    p, role:default/team-x, catalog.entity.create, read, allow
+    p, role:default/team-x, catalog.entity.delete, delete, deny
+    p, role:default/team-x, catalog.location.create, create, allow
+    p, role:default/team-x, catalog.location.read, read, allow
+    p, role:default/team-x, policy-entity, create, allow
+    p, role:default/team-x, policy-entity, read, allow
+
+    g, user:default/simondelord, role:default/team-x
+```
+
+You also need to update the ConfigMap redhat-developer-hub-app-config with the following extra (the tabulation is at the same level as backend)
+
+```
+app:
+  title: Hacking your way around Developer Hub
+  baseUrl: https://redhat-developer-hub-rhdh-operator.apps.bswptuqm.eastus.aroapp.io/
+integrations:
+  github:
+    - host: github.com
+      token: GITHUB-TOKEN
+auth:
+  allowGuestAccess: true
+  environment: development
+  providers:
+    github:
+      development:
+        clientId: GIT-HUB-CLIENT-ID
+        clientSecret: GIT-HUB-CLIENT-SECRET
+permission:
+  enabled: true
+  rbac:
+    admin:
+      users:
+        - name: user:default/simondelord
+backend:
+  auth:
+    keys:
+    - secret: ${BACKEND_SECRET}
+  baseUrl: https://redhat-developer-hub-rhdh-operator.apps.bswptuqm.eastus.aroapp.io
+  cors:
+    origin: https://redhat-developer-hub-rhdh-operator.apps.bswptuqm.eastus.aroapp.io
+  database:
+    connection:
+      password: ${POSTGRESQL_ADMIN_PASSWORD}
+      user: postgres
+```
+
+Now under the OCP Console in the Deployment Tab add the following code (in the volume section add both developer-hub-rbac-policy and developer-hub-rbac-config
+
+```
+     volumes:
+        - name: dynamic-plugins-root
+          ephemeral:
+            volumeClaimTemplate:
+              metadata:
+                creationTimestamp: null
+              spec:
+                accessModes:
+                  - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 2Gi
+                volumeMode: Filesystem
+        - name: dynamic-plugins
+          configMap:
+            name: dynamic-plugins
+            defaultMode: 420
+            optional: true
+        - name: dynamic-plugins-npmrc
+          secret:
+            secretName: dynamic-plugins-npmrc
+            defaultMode: 420
+            optional: true
+        - name: backstage-app-config
+          configMap:
+            name: redhat-developer-hub-app-config
+            defaultMode: 420
+        - name: backstage-developer-hub-rbac-config
+          configMap:
+            name: developer-hub-rbac-config
+            defaultMode: 420
+        - name: backstage-developer-hub-rbac-policy
+          configMap:
+            name: developer-hub-rbac-policy
+            defaultMode: 420
+      dnsPolicy: ClusterFirst
+```
+
+This should redeploy the PoD and then after it restarts (without any error hopefully), you should be able to login using your GitHub credentials.
+
 
  
