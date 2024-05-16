@@ -30,6 +30,7 @@ Just make sure to write down both the URL for accessing AAP as well as the Token
 - Deploy the defaults for the Operator
 ![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/images/RHDH-Operator-Hub.png)
 ![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/images/RHDH-Deploy-Operator.png)
+
 Installing Red Hat Developer Hub from the Operator Hub Console
 
 - The next step is to actually create a Developer Hub instance on the OpenShift cluster and create the dynamic plugin to access AAP.
@@ -49,6 +50,7 @@ The way to do this is to run the following commands (from your laptop or a jumph
 - npm info @janus-idp/backstage-plugin-aap-backend@1.6.5 dist.integrity
 
 ![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/images/SHA-AAP-plugin-new.png)
+
 Finding the SHA-512 from AAP plugin
 
 ### Modifying the helm chart
@@ -56,6 +58,7 @@ Finding the SHA-512 from AAP plugin
 In the Developer view of OCP console, go to Add -> Helm Chart -> Select Developer Hub
 
 ![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/images/RHDH-Helm-Install.png)
+
 Deploying RHDH via Helm Chart
 
 You then need to modify the YAML view of it and add the following to the YAML configuration.
@@ -90,6 +93,7 @@ You can first check once the Route for RHDH is available, the plugins by checkin
 so in this demo https://simon-aap-aap.apps.h28yrboo.eastasia.aroapp.io/api/dynamic-plugins-info/loaded-plugins
 
 ![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/images/RHDH-List-Plugins.png)
+
 View of the Dynamic Plugins configured on RHDH
 
  
