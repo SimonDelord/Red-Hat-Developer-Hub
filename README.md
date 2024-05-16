@@ -88,7 +88,7 @@ Find and replace the plugins []  and replace it with (remember to modify the url
           providers:
             aap:
               dev:
-                baseUrl: https://simon-aap-aap.apps.h28yrboo.eastasia.aroapp.io/
+                baseUrl: https://aap-simon-aap.apps.bswptuqm.eastus.aroapp.io/
                 authorization: 'Bearer 2rrLxlr7pouLJO57h0Hw4gp8wFT5uR'
                 owner: owner
                 system: system
