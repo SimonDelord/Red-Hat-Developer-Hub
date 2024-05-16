@@ -36,3 +36,58 @@ Installing Red Hat Developer Hub from the Operator Hub Console
 For this activity, I will use the Helm Chart and do the modifications for the dynamic plugin as part of the install.
 
 On the OCP Console, go to Developer View, change the project to rhdh-operator.
+
+### Installing the dynamic Plugins - AAP 
+
+To install the dynamic plugin, we need to figure out both the package and the associated sha-512 for it.
+
+The current package for AAP is @janus-idp/backstage-plugin-aap-backend@1.6.5
+And the associated sha-512 is sha512-3jMQXrX6vEYZpkVWlF1z7L4KiaQwJlSJrjfZAQQhdmIlH/uGuz32aJvq42T0CsTvi/uD52TqyG88r1TCuRidfw==
+
+The way to do this is to run the following commands (from your laptop or a jumphost)
+
+- npm pack @janus-idp/backstage-plugin-aap-backend@1.6.5
+- cat janus-idp-backstage-plugin-aap-backend-1.6.5.tgz | openssl dgst -sha512 -binary | openssl base64 -A
+
+![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/images/Detailed-SHA-AAP-plugin.png)
+![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/images/SHA-AAP-plugin.png)
+Configuring AAP as a dynamic Plugin for RHDH
+
+### Modifying the helm chart
+
+In the Developer view of OCP console, go to Add -> Helm Chart -> Select Developer Hub
+
+You then need to modify the YAML view of it and add the following to the YAML configuration.
+Find and replace the plugins []  and replace it with (remember to modify the url, the Token and the sha value).
+
+
+
+  plugins:
+    - disabled: false
+      integrity: >-
+           sha512-3jMQXrX6vEYZpkVWlF1z7L4KiaQwJlSJrjfZAQQhdmIlH/uGuz32aJvq42T0CsTvi/uD52TqyG88r1TCuRidfw==
+      package: '@janus-idp/backstage-plugin-aap-backend@1.6.5'
+      pluginConfig:
+        catalog:
+          providers:
+            aap:
+              dev:
+                baseUrl: https://simon-aap-aap.apps.h28yrboo.eastasia.aroapp.io/
+                authorization: 'Bearer LMkbvY88rEFhJ791sMZOheYHFISSF9'
+                owner: owner
+                system: system
+                schedule: 
+                  frequency: { minutes: 1 }
+                  timeout: { minutes: 1 }
+
+You can just click Create and the helm chart will deploy.
+
+## Start using RHDH
+
+You can first check once the Route for RHDH is available, the plugins by checking the following url - $HOST/api/dynamic-plugins-info/loaded-plugins,
+so in this demo https://simon-aap-aap.apps.h28yrboo.eastasia.aroapp.io/api/dynamic-plugins-info/loaded-plugins
+
+![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/images/RHDH-List-Plugins.png)
+View of the Dynamic Plugins configured on RHDH
+
+ 
