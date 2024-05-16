@@ -49,13 +49,16 @@ The way to do this is to run the following commands (from your laptop or a jumph
 - npm pack @janus-idp/backstage-plugin-aap-backend@1.6.5
 - cat janus-idp-backstage-plugin-aap-backend-1.6.5.tgz | openssl dgst -sha512 -binary | openssl base64 -A
 
-![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/images/Detailed-SHA-AAP-plugin.png)
 ![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/images/SHA-AAP-plugin.png)
+![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/images/Detailed-SHA-AAP-plugin.png)
 Configuring AAP as a dynamic Plugin for RHDH
 
 ### Modifying the helm chart
 
 In the Developer view of OCP console, go to Add -> Helm Chart -> Select Developer Hub
+
+![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/images/RHDH-Helm-Install.png)
+Deploying RHDH via Helm Chart
 
 You then need to modify the YAML view of it and add the following to the YAML configuration.
 Find and replace the plugins []  and replace it with (remember to modify the url, the Token and the sha value).
@@ -81,6 +84,7 @@ Find and replace the plugins []  and replace it with (remember to modify the url
                   timeout: { minutes: 1 }
 
 You can just click Create and the helm chart will deploy.
+
 
 ## Start using RHDH
 
