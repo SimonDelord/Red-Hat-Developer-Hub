@@ -98,7 +98,8 @@ Find and replace the plugins []  and replace it with (remember to modify the url
     - disabled: false
       integrity: sha512-zAKDnvMUv6zwMLx6GIrQDZ+M0D2pcqbZTgG7xqvPJj15j2ZuoJLPmLH7zQM9hdDfKWag0cqoPlP27139klr50Q==
       package: './dynamic-plugins/dist/janus-idp-backstage-plugin-rbac'
-     
+
+  host: 'redhat-developer-hub-rhdh-operator.apps.bswptuqm.eastus.aroapp.io'
 ```
 You can just click Create and the helm chart will deploy.
 
