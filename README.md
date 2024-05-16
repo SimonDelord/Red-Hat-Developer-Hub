@@ -46,12 +46,10 @@ And the associated sha-512 is sha512-3jMQXrX6vEYZpkVWlF1z7L4KiaQwJlSJrjfZAQQhdmI
 
 The way to do this is to run the following commands (from your laptop or a jumphost)
 
-- npm pack @janus-idp/backstage-plugin-aap-backend@1.6.5
-- cat janus-idp-backstage-plugin-aap-backend-1.6.5.tgz | openssl dgst -sha512 -binary | openssl base64 -A
+- npm info @janus-idp/backstage-plugin-aap-backend@1.6.5 dist.integrity
 
 ![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/images/SHA-AAP-plugin.png)
-![Browser](https://github.com/SimonDelord/Red-Hat-Developer-Hub/blob/main/images/Detailed-SHA-AAP-plugin.png)
-Configuring AAP as a dynamic Plugin for RHDH
+Finding the SHA-512 from AAP plugin
 
 ### Modifying the helm chart
 
