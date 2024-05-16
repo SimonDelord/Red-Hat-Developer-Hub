@@ -43,7 +43,10 @@ On the OCP Console, go to Developer View, change the project to rhdh-operator.
 To install the dynamic plugin, we need to figure out both the package and the associated sha-512 for it.
 
 The current package for AAP is @janus-idp/backstage-plugin-aap-backend@1.6.5
-And the associated sha-512 is sha512-3jMQXrX6vEYZpkVWlF1z7L4KiaQwJlSJrjfZAQQhdmIlH/uGuz32aJvq42T0CsTvi/uD52TqyG88r1TCuRidfw==
+
+And the associated sha-512 is 
+
+sha512-3jMQXrX6vEYZpkVWlF1z7L4KiaQwJlSJrjfZAQQhdmIlH/uGuz32aJvq42T0CsTvi/uD52TqyG88r1TCuRidfw==
 
 The way to do this is to run the following commands (from your laptop or a jumphost)
 
